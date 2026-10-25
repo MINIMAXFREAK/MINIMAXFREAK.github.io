@@ -1,0 +1,100 @@
+/* Basis: Schriften, Farben, Bühne (1920x1080, per Transform skaliert) */
+@font-face { font-family: 'Space Grotesk'; font-weight: 500; font-style: normal; font-display: block;
+  src: url(../fonts/space-grotesk-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-weight: 700; font-style: normal; font-display: block;
+  src: url(../fonts/space-grotesk-latin-700-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 400; font-style: normal; font-display: block;
+  src: url(../fonts/inter-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; font-style: normal; font-display: block;
+  src: url(../fonts/inter-latin-600-normal.woff2) format('woff2'); }
+
+:root {
+  --papier: #F4F1EA;
+  --papier2: #E6E1D4;
+  --tinte: #1B1B1F;
+  --tinte2: #4A4A52;
+  --amber: #E0A030;
+  --blau: #3B7DD8;
+  --rot: #D8402B;
+  --dunkel: #0B0B0D;
+  --kopf: 'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+  --text: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+body { font-family: var(--text); font-weight: 600; color: var(--papier); -webkit-font-smoothing: antialiased; }
+body.idle, body.idle * { cursor: none !important; }
+body.laser, body.laser * { cursor: none !important; }
+
+#viewport { position: fixed; inset: 0; background: #000; overflow: hidden; }
+#stage {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
+  transform-origin: 0 0; background: var(--dunkel); overflow: hidden;
+  user-select: none; -webkit-user-select: none;
+}
+#stage > * { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.vid { object-fit: contain; background: #000; z-index: 1; }
+#dom { z-index: 3; pointer-events: none; }
+#ov { z-index: 4; pointer-events: none; }
+#pen, #laser { z-index: 5; pointer-events: none; }
+body.pen #stage { cursor: crosshair; }
+#screen { z-index: 9; display: none; pointer-events: none; }
+#screen.black { display: block; background: #000; }
+#screen.white { display: block; background: #fff; }
+
+.layer { position: absolute; inset: 0; }
+.layer.fade { opacity: 0; transition: opacity .4s ease-out; }
+.layer.fade.on { opacity: 1; }
+.ovl { position: absolute; inset: 0; transition: opacity .5s ease-out; }
+.ovl.weg { opacity: 0; }
+
+/* HUD im Fenster (nicht skaliert) */
+#hud-probe {
+  position: fixed; left: 10px; bottom: 8px; z-index: 20; display: none;
+  font: 600 13px/1.3 var(--text); color: #fff; background: rgba(0, 0, 0, .55);
+  padding: 4px 8px; border-radius: 6px; pointer-events: none; max-width: 70vw;
+}
+body.probe #hud-probe { display: block; }
+#hud-warn {
+  position: fixed; right: 10px; top: 8px; z-index: 20; display: none;
+  font: 700 13px/1 var(--text); color: #1B1B1F; background: var(--amber);
+  padding: 5px 9px; border-radius: 14px; pointer-events: none;
+}
+body.probe #hud-warn.zeigen { display: block; }
+#hud-uhr {
+  position: fixed; right: 10px; bottom: 8px; z-index: 20; display: none;
+  font: 600 14px/1 var(--kopf); color: #fff; background: rgba(0, 0, 0, .55);
+  padding: 4px 8px; border-radius: 6px; pointer-events: none; font-variant-numeric: tabular-nums;
+}
+#hud-uhr.zeigen { display: block; }
+#hud-toast {
+  position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 30; display: none;
+  font: 600 15px/1 var(--text); color: #fff; background: rgba(0, 0, 0, .7); padding: 7px 12px; border-radius: 8px;
+  pointer-events: none;
+}
+#hud-toast.zeigen { display: block; }
+
+/* Übersicht und Hilfe */
+#uebersicht, #hilfe {
+  position: fixed; inset: 0; z-index: 40; display: none; background: rgba(11, 11, 13, .96); color: var(--papier);
+  overflow: auto; padding: 28px 36px; font-family: var(--text);
+}
+#uebersicht.offen, #hilfe.offen { display: block; }
+#uebersicht h2, #hilfe h2 { font: 700 28px var(--kopf); margin: 0 0 18px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.kachel { background: #1b1b20; border: 2px solid transparent; border-radius: 10px; overflow: hidden; cursor: pointer; text-align: left; padding: 0; color: inherit; font: inherit; }
+.kachel:hover, .kachel:focus-visible { border-color: var(--amber); outline: none; }
+.kachel.aktuell { border-color: var(--blau); }
+.kachel .bild { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
+.kachel .bild > .innen { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+.kachel .bild img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.kachel .titel { padding: 8px 12px 10px; font: 600 15px/1.25 var(--text); }
+.kachel .titel b { font: 700 15px var(--kopf); color: var(--amber); margin-right: 8px; }
+.kachel .titel small { display: block; font-size: 12px; opacity: .6; font-weight: 400; margin-top: 2px; }
+#hilfe table { border-collapse: collapse; font-size: 16px; }
+#hilfe td { padding: 5px 18px 5px 0; vertical-align: top; }
+#hilfe td:first-child { font: 700 15px var(--kopf); color: var(--amber); white-space: nowrap; }
+#hilfe .spalten { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 8px 40px; }
+#hilfe h3 { font: 700 18px var(--kopf); margin: 14px 0 6px; }
+.schliessen { position: absolute; right: 24px; top: 18px; background: none; border: 1px solid #555; color: #ddd; border-radius: 8px; padding: 6px 12px; font: 600 14px var(--text); cursor: pointer; }

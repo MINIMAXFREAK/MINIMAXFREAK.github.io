@@ -1,0 +1,20 @@
+{
+  "_hilfe": "Texte der Einstellungen. Titel, Untertitel und Name sind vorläufige Platzhalter. Der Buchtitel erscheint nur auf der Quellenfolie.",
+  "titel": "Wenn die Welt nicht untergeht",
+  "untertitel": "Wie Überzeugungen ein Scheitern überleben",
+  "name": "NAME_HIER",
+  "zielzeit": "15:00",
+  "buchtitel": "Influence: The Psychology of Persuasion",
+  "quellen": [
+    { "art": "quelle",  "text": "Festinger, L., Riecken, H. W., & Schachter, S. (1956): *When Prophecy Fails*." },
+    { "art": "quelle",  "text": "Das Buch zum Vortrag: Cialdini, R. B. (2006): *{buchtitel}*." },
+    { "art": "quelle",  "text": "Whitson, J. A., & Galinsky, A. D. (2008): Lacking control increases illusory pattern perception. *Science*, 322, 115–117." },
+    { "art": "quelle",  "text": "Milgram, S. (1963): Behavioral study of obedience. *Journal of Abnormal and Social Psychology*, 67, 371–378." },
+    { "art": "quelle",  "text": "Lord, C. G., Ross, L., & Lepper, M. R. (1979): Biased assimilation and attitude polarization. *Journal of Personality and Social Psychology*, 37, 2098–2109." },
+    { "art": "quelle",  "text": "Aronson, E., & Mills, J. (1959): The effect of severity of initiation on liking for a group. *Journal of Abnormal and Social Psychology*, 59, 177–181." },
+    { "art": "quelle",  "text": "Festinger, L., & Carlsmith, J. M. (1959): Cognitive consequences of forced compliance. *Journal of Abnormal and Social Psychology*, 58, 203–210." },
+    { "art": "hinweis", "text": "Soziale Bewährtheit: Begriff nach Cialdini." }
+  ],
+  "cues": [ "STILLE", "FREEZE", "PAUSE" ],
+  "abweichung": { "amberAb": 20, "rotAb": 45 }
+}

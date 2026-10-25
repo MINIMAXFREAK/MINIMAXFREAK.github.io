@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Referentenansicht</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/anim.css">
+<link rel="stylesheet" href="css/presenter.css">
+</head>
+<body class="presenter">
+<header id="kopf">
+  <div id="k-zaehler"><span id="k-nr">Titelfolie</span><span id="k-von"></span></div>
+  <div id="k-name"></div>
+  <div id="k-zeit">
+    <div id="uhr">0:00</div>
+    <div id="soll"></div>
+    <div id="soll2"></div>
+  </div>
+  <div id="k-warn"></div>
+</header>
+<main>
+  <aside>
+    <section id="jetzt">
+      <h2>Jetzt</h2>
+      <div id="phase"></div>
+      <ol id="kette"></ol>
+      <div id="rest"></div>
+    </section>
+    <section id="danach">
+      <h2>Als Nächstes</h2>
+      <div id="nx-name"></div>
+      <div id="nx-bild" class="kachel"><div class="bild"></div></div>
+    </section>
+    <section id="knoepfe">
+      <button data-cmd="prev" title="←">◀ Zurück</button>
+      <button data-cmd="next" class="gross" title="Leertaste">Weiter ▶</button>
+      <button data-cmd="replay" title="Umschalt + ←">⟲ Vorigen nochmal</button>
+      <button data-cmd="skip" title="S">Kette überspringen</button>
+      <button data-cmd="overlay" title="O">Overlay (O)</button>
+      <button data-cmd="black" title="B">Schwarz (B)</button>
+      <button data-cmd="mute" title="M" id="b-mute">Ton an</button>
+      <button id="b-uebersicht" title="G">Übersicht (G)</button>
+      <button data-cmd="resetClock">Stoppuhr zurücksetzen</button>
+      <button id="b-hilfe" title="H">Hilfe (H)</button>
+    </section>
+  </aside>
+  <article id="notizen">
+    <div id="n-tools"><button id="n-minus" title="Schrift kleiner">A−</button><button id="n-plus" title="Schrift größer">A+</button></div>
+    <div id="n-text"></div>
+  </article>
+</main>
+<footer id="fuss"></footer>
+<div id="uebersicht"></div>
+<div id="hilfe"></div>
+
+<script src="js/core/util.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/anim/basis.js"></script>
+<script src="js/anim/einsatz.js"></script>
+<script src="js/anim/dissonanz.js"></script>
+<script src="js/anim/umdeutung.js"></script>
+<script src="js/anim/gewissheit.js"></script>
+<script src="js/anim/waage.js"></script>
+<script src="js/anim/feed.js"></script>
+<script src="js/core/channel.js"></script>
+<script src="js/core/overview.js"></script>
+<script src="js/core/controls.js"></script>
+<script src="js/presenter.js"></script>
+</body>
+</html>

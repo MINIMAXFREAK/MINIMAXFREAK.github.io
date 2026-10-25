@@ -1,0 +1,93 @@
+/* 2D-Animationen und Karten (Koordinatensystem 1920x1080) */
+.scene { position: absolute; inset: 0; overflow: hidden; font-family: var(--text); font-weight: 600; }
+.scene.papier { background: var(--papier); color: var(--tinte); }
+.scene.dunkel { background: var(--dunkel); color: var(--papier); }
+.scene > svg:not([class]) { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+.kopf { font-family: var(--kopf); font-weight: 700; }
+.abs { position: absolute; }
+
+/* Titelfolie */
+.titel .t-uhr { position: absolute; left: 1040px; top: 150px; width: 780px; height: 780px; }
+.titel .t-text { position: absolute; left: 130px; top: 250px; width: 840px; }
+.titel h1 { font: 700 116px/1.04 var(--kopf); margin: 0; letter-spacing: -1px; }
+.titel .t-bar { width: 170px; height: 14px; background: var(--amber); border-radius: 7px; margin: 44px 0 36px; }
+.titel p { font: 600 54px/1.25 var(--text); margin: 0; color: var(--tinte2); }
+
+/* Quellenfolie */
+.quellen { padding: 56px 100px; }
+.quellen h2 { font: 700 88px/1 var(--kopf); margin: 0; }
+.quellen .q-bar { width: 150px; height: 12px; background: var(--amber); border-radius: 6px; margin: 20px 0 34px; }
+.quellen .q-liste { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; column-gap: 64px; row-gap: 22px; }
+.quellen .q-zeile { display: flex; align-items: baseline; gap: 18px; }
+.quellen .q-marke { flex: none; width: 52px; font: 700 40px var(--kopf); color: var(--amber); }
+.quellen .q-text { font: 600 40px/1.2 var(--text); }
+.quellen .q-zeile.hinweis .q-marke { color: #6FA3EC; }
+.quellen .q-zeile.hinweis .q-text { color: rgba(244, 241, 234, .86); }
+.quellen em { font: 500 1em var(--kopf); font-style: normal; color: var(--amber); }
+
+/* Kapitelkarte */
+.kapitel { background: var(--dunkel); }
+.kapitel .kap-wort { position: absolute; left: 0; right: 0; top: 400px; text-align: center; font: 700 150px/1 var(--kopf); color: var(--papier); }
+.kapitel .kap-linie { position: absolute; left: 960px; top: 620px; height: 10px; width: 640px; margin-left: -320px; background: var(--amber); border-radius: 5px; transform: scaleX(0); }
+
+/* 2D-1 Frage */
+.frage .schleier { position: absolute; left: 0; right: 0; bottom: 0; height: 460px; background: linear-gradient(to top, rgba(11, 11, 13, .62), rgba(11, 11, 13, 0)); }
+.frage .f-text { position: absolute; left: 0; right: 0; bottom: 120px; text-align: center; font: 700 72px/1.1 var(--kopf); color: var(--papier); text-shadow: 0 2px 18px rgba(0, 0, 0, .35); }
+
+/* Platzhalterkarte */
+.platzhalter .p-ring { left: 1010px; top: 80px; width: 840px; height: 840px; }
+.platzhalter .p-klick { position: absolute; left: 130px; top: 110px; font: 600 48px/1 var(--text); color: var(--tinte2); }
+.platzhalter .p-name { position: absolute; left: 130px; right: 130px; top: 290px; font: 700 200px/1.02 var(--kopf); letter-spacing: -2px; }
+.platzhalter .p-folgt { position: absolute; left: 130px; top: 560px; display: inline-flex; align-items: center; gap: 22px; background: var(--amber); color: var(--tinte); padding: 16px 36px 18px; border-radius: 60px; font: 700 58px/1 var(--kopf); }
+.platzhalter .p-datei { position: absolute; left: 134px; top: 700px; font: 600 44px/1 var(--text); color: var(--tinte2); }
+.platzhalter .p-bahn { position: absolute; left: 130px; top: 852px; width: 1660px; height: 32px; border-radius: 16px; background: var(--papier2); overflow: hidden; }
+.platzhalter .p-fuell { height: 100%; width: 0; background: var(--tinte); border-radius: 16px; }
+.platzhalter .p-zeit { position: absolute; left: 130px; top: 910px; font: 500 46px/1 var(--kopf); color: var(--tinte); font-variant-numeric: tabular-nums; }
+.platzhalter .p-poster { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+
+/* 2D-4 Dissonanz */
+.dissonanz .karte-links { position: absolute; left: 150px; top: 690px; width: 740px; height: 340px; }
+.dissonanz .karte-rechts { position: absolute; left: 1030px; top: 690px; width: 740px; height: 340px; }
+@keyframes leuchten { 0%, 100% { box-shadow: 0 0 40px 6px rgba(224, 160, 48, .45); } 50% { box-shadow: 0 0 90px 24px rgba(224, 160, 48, .75); } }
+.dissonanz .glimmt { animation: leuchten 2.6s ease-in-out infinite; }
+
+/* 2D-5 Umdeutung: Zettel */
+.umdeutung { background: radial-gradient(ellipse at 50% 40%, #1d1d22, var(--dunkel) 70%); }
+.umdeutung .u-zettel { position: absolute; left: 260px; top: 90px; width: 1400px; height: 710px; background: var(--papier); color: var(--tinte); border-radius: 18px; padding: 70px 90px; box-shadow: 0 30px 60px rgba(0, 0, 0, .55), 0 0 0 2px rgba(27, 27, 31, .15); transform-origin: 50% 100%; opacity: 0; }
+.umdeutung .u-tape { position: absolute; left: 50%; top: -26px; width: 210px; height: 56px; margin-left: -105px; background: rgba(224, 160, 48, .85); transform: rotate(-2deg); border-radius: 4px; }
+.umdeutung .u-kopf { font: 500 48px/1 var(--kopf); color: var(--tinte2); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 34px; opacity: 0; }
+.umdeutung .u-z1 { position: relative; display: inline-block; font: 700 80px/1.15 var(--kopf); opacity: 0; }
+.umdeutung .u-strich { position: absolute; left: -12px; top: 54%; height: 12px; border-radius: 6px; background: var(--amber); width: 0; }
+.umdeutung .u-z2 { font: 700 80px/1.18 var(--kopf); color: #B97A0B; margin-top: 26px; }
+.umdeutung .u-z2 span { opacity: 0; }
+.umdeutung .u-caret { display: inline-block; position: relative; width: 0; height: .85em; vertical-align: -0.08em; }
+.umdeutung .u-caret::before { content: ''; position: absolute; left: 2px; top: 0; width: .07em; height: 100%; background: #B97A0B; }
+.umdeutung .u-grund { font: 600 50px/1.25 var(--text); color: var(--tinte2); margin-top: 34px; opacity: 0; }
+.umdeutung .u-fazit { position: absolute; left: 0; right: 0; top: 880px; text-align: center; font: 700 76px/1 var(--kopf); color: var(--amber); opacity: 0; }
+
+/* Schlussfrage auf Schwarz */
+.fragekarte { background: #000; }
+.fragekarte .f-wort { position: absolute; left: 0; right: 0; top: 440px; text-align: center; font: 700 120px/1.1 var(--kopf); color: var(--papier); opacity: 0; }
+
+/* 2D-6 Gewissheit */
+.gewissheit .g-fazit { position: absolute; left: 0; right: 0; top: 905px; text-align: center; font: 700 88px/1 var(--kopf); color: var(--tinte); }
+.gewissheit .g-fazit .wort { position: relative; display: inline-block; padding: 0 4px; }
+.gewissheit .g-fazit .wort::after { content: ''; position: absolute; left: 0; right: 0; bottom: -14px; height: 12px; border-radius: 6px; background: var(--amber); transform-origin: 0 50%; transform: scaleX(var(--u, 0)); }
+.gewissheit .g-fuss { position: absolute; right: 60px; bottom: 28px; font: 600 40px/1 var(--text); color: var(--tinte2); }
+
+/* 2D-9 Feed */
+.feed .post { position: absolute; background: #fff; border: 6px solid var(--tinte); border-radius: 40px; box-shadow: 0 14px 0 rgba(27, 27, 31, .14); transform-origin: 50% 0; }
+.feed .avatar { position: absolute; border-radius: 50%; }
+.feed .f-name { position: absolute; font: 700 56px/1 var(--kopf); color: var(--tinte); }
+.feed .f-text { position: absolute; font: 600 56px/1.22 var(--text); color: var(--tinte); }
+.feed .f-text.laut { font: 700 76px/1.08 var(--kopf); }
+.feed .f-herz { position: absolute; display: flex; align-items: center; gap: 18px; font: 700 56px/1 var(--kopf); color: var(--tinte); font-variant-numeric: tabular-nums; }
+.feed .check { position: absolute; background: var(--papier2); border: 6px solid var(--tinte); border-radius: 0 0 30px 30px; border-top: 0; font: 600 44px/1 var(--text); color: var(--tinte); display: flex; align-items: center; gap: 20px; padding: 0 36px; overflow: hidden; }
+.feed .stempel { position: absolute; border: 12px solid var(--rot); color: var(--rot); border-radius: 20px; font: 700 108px/1 var(--kopf); padding: 8px 34px 14px; letter-spacing: 4px; background: rgba(244, 241, 234, .94); transform-origin: 50% 50%; white-space: nowrap; }
+.feed .kommentar { position: absolute; display: flex; align-items: center; gap: 28px; }
+.feed .k-blase { background: #fff; border: 5px solid var(--tinte); border-radius: 36px; padding: 14px 36px 18px; font: 600 46px/1.1 var(--text); color: var(--tinte); }
+.feed .balken { position: absolute; left: 0; width: 1920px; background: var(--amber); display: flex; align-items: center; justify-content: center; font: 700 58px/1 var(--kopf); color: var(--tinte); }
+
+/* 2D-7 Waage */
+.waage .w-fazit { position: absolute; left: 0; right: 0; top: 985px; text-align: center; font: 700 58px/1 var(--kopf); color: var(--tinte); opacity: 0; }
+.waage .w-chip { position: absolute; left: 1240px; top: 36px; background: var(--amber); color: var(--tinte); border-radius: 50px; padding: 14px 40px 18px; font: 700 54px/1.1 var(--kopf); opacity: 0; white-space: nowrap; }
