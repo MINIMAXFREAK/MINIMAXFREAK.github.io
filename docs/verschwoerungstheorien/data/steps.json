@@ -90,7 +90,7 @@
     "einsatz":   { "name": "2D-3 Einsatz-Stapel", "dauer": 6.0, "start": 0.5, "abstand": 1.2, "fall": 0.45, "wachstum": 0.5,
                    "ablage": "EINSATZ", "preisschild": "Ausstieg",
                    "symbole": [ "Job", "Besitz", "Familie", "Ruf" ] },
-    "dissonanz": { "name": "2D-4 Dissonanz-Knoten", "dauer": 12.0, "gleiten": 2.5, "knoten": 2.5,
+    "dissonanz": { "name": "2D-4 Dissonanz-Knoten", "dauer": 12.0, "gleiten": 2.0, "knoten": 2.4,
                    "balkenStart": 3.0, "balkenRot": 7.0, "pfeile": 8.0, "karteLinks": 9.0, "karteRechts": 9.4,
                    "links": "Ich habe alles geopfert", "rechts": "Es ist nichts passiert",
                    "balken": "Spannung", "zugeben": "Zugeben:", "zugebenText": "alles umsonst, dazu Scham und Spott", "umdeuten": "Umdeuten" },

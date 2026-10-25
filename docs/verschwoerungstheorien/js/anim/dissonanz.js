@@ -1,11 +1,8 @@
-/* 2D-4 Dissonanz-Knoten: zwei Gedanken prallen aufeinander, Spannung steigt, zwei Wege */
+/* 2D-4 Dissonanz: zwei Gedanken stehen nebeneinander, ein Blitz dazwischen zeigt den Widerspruch, Spannung steigt, zwei Wege */
 (function () {
   'use strict';
   const { h, s, ease, Timeline, clamp, mixColor } = VT;
   const INK = '#1B1B1F', AMBER = '#E0A030', BLAU = '#3B7DD8', ROT = '#D8402B', PAPIER = '#F4F1EA', PAPIER2 = '#E6E1D4';
-
-  /* Anflug: gleiten, am Ende beschleunigen -> Aufprall */
-  const anflug = (p) => (p < 0.76 ? 0.9 * ease.outCubic(p / 0.76) : 0.9 + 0.1 * ease.inQuad((p - 0.76) / 0.24));
 
   VT.anims.dissonanz = {
     create(host, cfg) {
@@ -26,42 +23,33 @@
         g.append(s('circle', { cx: bx + dir * 24, cy: BY + BH + 36, r: 16, fill }));
         g.append(s('circle', { cx: bx + dir * 56, cy: BY + BH + 74, r: 9, fill }));
         const lh = 80, y0 = BY + BH / 2 - ((zeilen.length - 1) * lh) / 2 + 22;
-        const tx = x + BW / 2 + (side === 'l' ? -40 : 40);
+        const tx = x + BW / 2;
         zeilen.forEach((z, i) => g.append(s('text', { x: tx, y: y0 + i * lh, 'text-anchor': 'middle', 'font-family': 'Inter, sans-serif', 'font-weight': 600, 'font-size': 66, fill: textCol, text: z })));
         svg.append(g);
         return g;
       };
       const split = (str) => { const w = String(str).split(' '); const m = Math.ceil(w.length / 2); return [w.slice(0, m).join(' '), w.slice(m).join(' ')]; };
-      const gL = bubble(300, BLAU, PAPIER, split(cfg.links || 'Ich habe alles geopfert'), 'l');
-      const gR = bubble(960, INK, PAPIER, split(cfg.rechts || 'Es ist nichts passiert'), 'r');
-      const startOff = 1100;
+      const gL = bubble(230, BLAU, PAPIER, split(cfg.links || 'Ich habe alles geopfert'), 'l');
+      const gR = bubble(1030, INK, PAPIER, split(cfg.rechts || 'Es ist nichts passiert'), 'r');
+      const startOff = 1000;
       tl.each((t) => {
-        const p = clamp(t / gl);
-        const off = (1 - anflug(p)) * startOff;
-        let shake = 0, sq = 1;
-        if (t > tk) { const q = t - tk; shake = Math.sin(q * 46) * 16 * Math.exp(-q * 7); sq = 1 - 0.05 * Math.exp(-q * 8) * Math.cos(q * 28); }
-        gL.setAttribute('transform', 'translate(' + (-off + shake) + ',0) translate(960,0) scale(' + sq + ',1) translate(-960,0)');
-        gR.setAttribute('transform', 'translate(' + (off - shake) + ',0) translate(960,0) scale(' + sq + ',1) translate(-960,0)');
+        const off = (1 - ease.outCubic(clamp(t / gl))) * startOff;
+        gL.setAttribute('transform', 'translate(' + -off + ',0)');
+        gR.setAttribute('transform', 'translate(' + off + ',0)');
         gL.style.opacity = gR.style.opacity = clamp(t / 0.3);
       });
 
-      /* Knoten: verknoteter Strich zwischen den Blasen */
-      const knoten = s('g', { transform: 'translate(960,' + (BY + BH / 2) + ')' });
-      const kPath = s('path', {
-        d: 'M-82,18 C-52,-70 70,-76 62,-6 C54,58 -74,50 -50,-14 C-30,-72 86,-40 84,24 C82,70 -34,84 -70,34 C-104,-12 -50,-66 10,-44 C70,-20 52,56 -16,50',
-        fill: 'none', stroke: INK, 'stroke-width': 12, 'stroke-linecap': 'round', 'stroke-linejoin': 'round',
-      });
-      const kPath2 = s('circle', { cx: 0, cy: 0, r: 108, fill: PAPIER, stroke: INK, 'stroke-width': 10 });
-      knoten.append(kPath2, kPath);
-      svg.append(knoten);
-      const kl = 1500;
-      kPath.setAttribute('stroke-dasharray', kl);
-      tl.tween(tk, 0.7, ease.outCubic, (p) => {
-        kPath.setAttribute('stroke-dashoffset', kl * (1 - p));
-        knoten.style.opacity = p > 0 ? 1 : 0;
-      });
-      tl.tween(tk, 0.5, ease.outBack, (p) => {
-        knoten.setAttribute('transform', 'translate(960,' + (BY + BH / 2) + ') scale(' + (0.7 + 0.5 * p) + ')');
+      /* Blitz zwischen den Gedanken: sie widersprechen einander */
+      const blitz = s('g', { opacity: 0 });
+      blitz.append(s('path', { d: 'M34,-150 L-52,12 L-6,12 L-38,152 L62,-34 L12,-34 Z', fill: AMBER, stroke: INK, 'stroke-width': 9, 'stroke-linejoin': 'round' }));
+      svg.append(blitz);
+      tl.each((t) => {
+        const q = t - tk;
+        if (q < 0) { blitz.setAttribute('opacity', 0); return; }
+        const flicker = q < 0.7 ? (Math.floor(q * 18) % 3 === 1 ? 0.35 : 1) : 1;
+        const pop = ease.outBack(clamp(q / 0.35));
+        blitz.setAttribute('opacity', flicker);
+        blitz.setAttribute('transform', 'translate(960,' + (BY + BH / 2 + 10) + ') scale(' + (0.4 + 0.6 * pop) + ')');
       });
 
       /* Spannungsbalken */
